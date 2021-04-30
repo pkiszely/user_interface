@@ -1,0 +1,38 @@
+<h2>Registration</h2>
+
+<pre>{{ form.value| json}}</pre>
+
+
+<form [formGroup]="form">
+    <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" name=name formControlName="name">
+        <mat-error *ngIf="!form.controls.name.valid && !form.controls.name.pristine">
+            Name is required!
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" name=email formControlName="email">
+        <mat-error *ngIf="!form.controls.email.valid && !form.controls.email.pristine">
+            Valid email is required!
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" name=password formControlName="password">
+        <mat-error *ngIf="!form.controls.password.valid && !form.controls.password.pristine">
+            Long password is required!
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Password confirm</mat-label>
+        <input matInput type="password" name=passwordConfirm formControlName="password">
+        <mat-error *ngIf="!form.controls.passwordConfirm.valid && !form.controls.passwordConfirm.pristine">
+            Long password is required!
+        </mat-error>
+    </mat-form-field>
+    <mat-error *ngIf="!form.valid && !form.pristine">
+        All fields should be filled and passwords should be matching values!
+    </mat-error>
+</form>
