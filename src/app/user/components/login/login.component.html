@@ -1,1 +1,24 @@
-<p>login works!</p>
+<h2>Login</h2>
+
+<pre>{{ form.value| json}}</pre>
+
+
+<form [formGroup]="form" (ngSubmit)="login()">
+    <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" name=email formControlName="email">
+        <mat-error *ngIf="!form.controls.email.valid && !form.controls.email.pristine">
+            Valid email is required!
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" name=password formControlName="password">
+        <mat-error *ngIf="!form.controls.password.valid && !form.controls.password.pristine">
+            Long password is required!
+        </mat-error>
+    </mat-form-field>
+    <button mat-button type="submit" [disabled]="!form.valid">
+        Login
+    </button>
+</form>

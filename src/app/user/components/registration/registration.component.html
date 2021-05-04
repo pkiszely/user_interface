@@ -3,7 +3,7 @@
 <pre>{{ form.value| json}}</pre>
 
 
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="register()">
     <mat-form-field appearance="fill">
         <mat-label>Name</mat-label>
         <input matInput type="text" name=name formControlName="name">
@@ -27,7 +27,7 @@
     </mat-form-field>
     <mat-form-field appearance="fill">
         <mat-label>Password confirm</mat-label>
-        <input matInput type="password" name=passwordConfirm formControlName="password">
+        <input matInput type="password" name=passwordConfirm formControlName="passwordConfirm">
         <mat-error *ngIf="!form.controls.passwordConfirm.valid && !form.controls.passwordConfirm.pristine">
             Long password is required!
         </mat-error>
@@ -35,4 +35,7 @@
     <mat-error *ngIf="!form.valid && !form.pristine">
         All fields should be filled and passwords should be matching values!
     </mat-error>
+    <button mat-button type="submit" [disabled]="!form.valid">
+        Register
+    </button>
 </form>
