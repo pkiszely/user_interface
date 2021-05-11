@@ -13,9 +13,9 @@ export class LoginComponent implements OnInit {
 
   public form = new FormGroup(
     {
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)])
-  }
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)])
+    }
   );
 
   constructor(private authService: AuthService, private router: Router) { }
@@ -26,8 +26,6 @@ export class LoginComponent implements OnInit {
   login(): void {
     this.authService.login(this.form.value).subscribe({
       next: (response: AuthResponseDto) => {
-        console.log('Token', response.token);
-        console.log('User', response.user);
         this.router.navigate(['/']);
       },
       error: (error: any) => {

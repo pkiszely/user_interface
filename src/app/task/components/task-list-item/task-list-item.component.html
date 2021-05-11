@@ -1,0 +1,4 @@
+<mat-checkbox [(ngModel)]="task.is_done" (change)="updateTask()" [disabled]="disabled || loading"></mat-checkbox>
+<input matInput [(ngModel)]="task.name" (change)="updateTask()" [disabled]="disabled || loading">
+<button mat-button color="warn" (click)="deleteTask()">Delete</button>
+{{ task.created_at | age:now }}

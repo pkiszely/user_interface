@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
 import { UserDto } from 'src/app/user/dtos/user.dto';
 import { environment } from 'src/environments/environment';
 import { AuthResponseDto } from '../dtos/auth-response.dto';
@@ -13,25 +15,25 @@ export class AuthService {
   public user: UserDto;
 
   constructor(private http: HttpClient) {
-      this.loadFromStorage();
-   }
+    this.loadFromStorage();
+  }
 
-  login(user: UserDto): Observable<AuthResponseDto>{
-    const observable = this.http.post<AuthResponseDto>(
+  public login(user: UserDto): Observable<AuthResponseDto> {
+    return this.http.post<AuthResponseDto>(
       environment.apiEndpoint + '/auth',
       user
+    ).pipe(
+      tap({
+        next: (response: AuthResponseDto) => {
+          this.token = response.token;
+          this.user = response.user;
+          this.saveToStorage();
+        },
+        error: () => {
+          this.logout();
+        }
+      })
     );
-    observable.subscribe({
-      next: (response: AuthResponseDto) => {
-        this.token = response.token;
-        this.user = response.user;
-        this.saveToStorage();
-      },
-      error: () => {
-        this.logout();
-      }
-    });
-    return observable;
   }
 
   public logout(): void {
@@ -41,12 +43,12 @@ export class AuthService {
   }
 
   private saveToStorage(): void {
-    if (this.token){
+    if (this.token) {
       localStorage.setItem('token', this.token);
     } else {
       localStorage.removeItem('token');
     }
-    if (this.user){
+    if (this.user) {
       localStorage.setItem('user', JSON.stringify(this.user));
     } else {
       localStorage.removeItem('user');

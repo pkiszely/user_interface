@@ -1,1 +1,16 @@
-<p>task-list works!</p>
+<h3>My Tasks</h3>
+
+<button mat-button (click)="addNewTask()">Add New Task</button>
+
+<mat-list>
+  <mat-list-item *ngFor="let task of tasks">
+    <app-task-list-item
+      [task]="task"
+      [disabled]="loading"
+      (change)="loadTasks()"
+      (delete)="removeTask($event)"
+    ></app-task-list-item>
+  </mat-list-item>
+</mat-list>
+
+<mat-spinner *ngIf="loading" diameter="24"></mat-spinner>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observer } from 'rxjs';
 import { UserDto } from '../../dtos/user.dto';
 import { UserService } from '../../services/user.service';
 
@@ -12,12 +13,12 @@ export class RegistrationComponent implements OnInit {
 
   public form = new FormGroup(
     {
-    name: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    passwordConfirm: new FormControl('', [Validators.required, Validators.minLength(6)])
-  },
-  this.passwordMatchValidator
+      name: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      passwordConfirm: new FormControl('', [Validators.required, Validators.minLength(6)])
+    },
+    this.passwordMatchValidator
   );
 
   constructor(private userService: UserService) { }
@@ -29,7 +30,7 @@ export class RegistrationComponent implements OnInit {
     this.userService.register(this.form.value).subscribe({
       next: (user: UserDto) => {
         console.log(user);
-        window.alert('Successful registration. ');
+        window.alert('Successful registration.');
         this.form.reset();
       },
       error: (error: any) => {
@@ -39,8 +40,8 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
-  private passwordMatchValidator(g: FormGroup): {mismatch: boolean}{
-    return g.get('password').value === g.get('passwordConfirm').value ? null : { mismatch: true }
+  private passwordMatchValidator(g: FormGroup) {
+    return g.get('password').value === g.get('passwordConfirm').value ? null : { mismatch: true };
   }
 
 }

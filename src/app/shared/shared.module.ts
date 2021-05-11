@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatMenuModule } from '@angular/material/menu';
+import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterModule } from '@angular/router';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
-
-
 
 @NgModule({
   declarations: [
@@ -19,9 +17,9 @@ import { NavigationComponent } from './components/navigation/navigation.componen
   imports: [
     CommonModule,
     RouterModule,
-    MatMenuModule,
     MatButtonModule,
     MatIconModule,
+    MatMenuModule,
     MatToolbarModule
   ],
   exports: [
